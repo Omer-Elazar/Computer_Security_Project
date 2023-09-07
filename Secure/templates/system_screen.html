@@ -1,0 +1,28 @@
+<body>
+{% block content %}
+  <h2>WELCOME {{ username }}</h2>
+    <p>
+        <a href="{% url 'logout' %}" class="ml-2">Logout</a>
+    </p>
+    <p>
+            <a href="{% url 'change_password' %}" class="ml-2">Change Password</a>
+    </p>
+  <form method="POST">
+    {% csrf_token %}
+    <label for="name">Customer Name:</label>
+    <input type="text" name="name" required>
+      <label for="email">Customer Email:</label>
+    <input type="text" name="email" required>
+    <button type="submit">Add Customer</button>
+  </form>
+    {% for account in accounts %}
+    <li>{{ account.name }}</li>
+    {% endfor %}
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+    {% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}
+    </li>
+    {% endfor %}
+{% endblock %}
+</body>
+</html>
