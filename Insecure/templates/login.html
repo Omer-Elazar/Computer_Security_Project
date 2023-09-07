@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+  <h2>Login</h2>
+    <form method="POST">
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input type="text" name="username" required>
+      <label for="password">Password:</label>
+    <input type="password" name="password" required>
+    <button type="submit">Login</button>
+  </form>
+    <li>
+    Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign up</a>
+    </li>
+    <li>
+    Forgot your password? <a href="{% url 'forgot_password' %}" class="ml-2">Forgot password</a>
+    </li>
+        {% for message in messages %}
+    <li class="{{ message.tags }}">
+    {% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}
+    </li>
+{% endfor %}
+{% endblock %}
+</body>
+</html>
